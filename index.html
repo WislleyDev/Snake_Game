@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="shortcut icon" href="Assets/Icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="Assets/Css/style.css">
+</head>
+<body>
+    <div class="score">
+        <p id="nome_score">Score:<span class="score_value">00</span></p>
+        <p id="exposed_dificulty">Dificuldade: Fácil</p>
+    </div>
+
+    <div class="menu_screen">
+        <span class="game_over">Game Over</span>
+        <p class="melhor_score">Recorde: <span>00</span></p>
+        <span class="final_score">Score: <span>00</span></span>
+        <p class="final_score">Dificuldade:</p>
+        <input type="range" name="dificuldade" id="id_dificuldade" min="0" max="5" value="0">
+        <p id="nome_da_dificuldade">Aleatório</p>
+            
+        <button class="btn_play">
+            <span class="material-symbols-outlined">
+                play_circle
+            </span>
+            Jogar Novamente
+        </button>
+    </div>
+
+    <canvas width="600" height="600"></canvas>
+    <div id="controles">
+        <button id="esquerda">&larr;</button>
+        <div id="cima_baixo">
+            <button id="cima">&uarr;</button>
+            <button id="baixo">&darr;</button>
+        </div>
+        <button id="direita">&rarr;</button>
+    </div>
+    <script src="Assets/Js/Script.js"></script>
+</body>
+</html>
