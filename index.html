@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Game</title>
-    <link rel="shortcut icon" href="Assets/Icons/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="Assets/Utils/Icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="Assets/Css/style.css">
 </head>
@@ -22,6 +22,18 @@
         <input type="range" name="dificuldade" id="id_dificuldade" min="0" max="5" value="0">
         <p id="nome_da_dificuldade">Aleatório</p>
             
+        <div id="modo">
+            <p class="final_score" id="nome_modo">Modo:</p>
+            <div id="itens_do_seletor">
+                <button class="setas" id="mais"><img src="Assets/Utils/Imgs/setaE.png" alt=""></button>
+                <div id="img_e_nome">
+                    <img id="modo_de_jogo" src="Assets/Utils/Imgs/classico.png" alt="">
+                    <p id="nome_do_modo">Jogo clássico</p>
+                </div>
+                <button class="setas" id="menos"><img src="Assets/Utils/Imgs/setaD.png" alt=""></button>
+            </div>
+        </div>
+
         <button class="btn_play">
             <span class="material-symbols-outlined">
                 play_circle
@@ -39,6 +51,7 @@
         </div>
         <button id="direita">&rarr;</button>
     </div>
+    <script src="Assets/Js/detectar_d.js"></script>
     <script src="Assets/Js/Script.js"></script>
 </body>
 </html>

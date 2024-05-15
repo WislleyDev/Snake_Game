@@ -103,6 +103,54 @@ canvas {
     cursor: pointer;
 }
 
+#nome_modo {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+}
+
+#modo_de_jogo {
+    width: 60px;
+    height: 60px;
+}
+
+#img_e_nome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;   
+    
+}
+
+#itens_do_seletor {
+    display: flex;
+    gap: 10px;
+}
+
+.setas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.setas:hover {
+    border: 1px solid rgba(128, 128, 128, 0.582);
+}
+
+.setas > img  {
+    z-index: -1;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
 #controles {
     display: none;
     gap: 5px;
@@ -128,9 +176,5 @@ canvas {
 @media(max-width: 600px) {
     canvas {
         width: 95%;
-    }
-
-    #controles {
-        display: flex;
     }
 }

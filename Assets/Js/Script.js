@@ -12,6 +12,10 @@ const controle_cima = document.querySelector('#cima')
 const controle_baixo = document.querySelector('#baixo')
 const controle_direita = document.querySelector('#direita')
 const controles = document.querySelector('#controles')
+const trocar_modo_para_E = document.querySelector('#mais')
+const trocar_modo_para_D = document.querySelector('#menos')
+const img_do_modo_de_jogo = document.querySelector('#modo_de_jogo')
+const nome_do_modo = document.querySelector('#nome_do_modo')
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
@@ -203,6 +207,87 @@ const food = {
     color: Randow_Color()
 }
 
+const fakefood = {
+    x: Randow_Position(0, 570),
+    y: Randow_Position(0, 570),
+    color: Randow_Color()
+}
+
+let classico = false
+let portal = false
+let parede = false
+let sorte = false
+let cheak_number = 1
+trocar_modo_para_D.addEventListener('click', () => {
+        cheak_number += 1
+        console.log(cheak_number);
+
+        if (cheak_number == 0) {
+            img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/classico.png'
+            nome_do_modo.innerText = 'Jogo clássico'
+            cheak_number += 3
+        }
+        
+        if (cheak_number == 2) {
+            img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/portal.png'
+            nome_do_modo.innerText = 'Portal aleatório'
+
+        }
+
+        if (cheak_number == 3) {
+            img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/randow_wall.png'
+            nome_do_modo.innerText = 'Parede aleatória'
+
+        }
+
+        if (cheak_number == 4) {
+            img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/poison_apple.png'
+            nome_do_modo.innerText = 'Cofie na sorte'
+        }
+
+        if (cheak_number == 5) {
+            img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/classico.png'
+            nome_do_modo.innerText = 'Jogo clássico'
+
+            cheak_number = 1
+        }
+    })
+
+trocar_modo_para_E.addEventListener('click', () => {
+    cheak_number -= 1
+
+    if (cheak_number == 0) {
+        img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/classico.png'
+        nome_do_modo.innerText = 'Jogo clássico'
+
+        cheak_number += 4
+    }
+    
+    if (cheak_number == 1) {
+        img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/classico.png'
+        nome_do_modo.innerText = 'Jogo clássico'
+
+        cheak_number = 1
+    }
+
+    if (cheak_number == 2) {
+        img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/portal.png'
+        nome_do_modo.innerText = 'Portal aleatório'
+
+    }
+
+    if (cheak_number == 3) {
+        img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/randow_wall.png'
+        nome_do_modo.innerText = 'Parede aleatória'
+
+    }
+
+    if (cheak_number == 4) {
+        img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/poison_apple.png'
+        nome_do_modo.innerText = 'Cofie na sorte'
+    }
+})
+
 let direction, loop_id
 
 const Draw_Food = () => {
@@ -210,6 +295,15 @@ const Draw_Food = () => {
     
     ctx.shadowColor = color
     ctx.shadowBlur = 6
+    ctx.fillStyle = color
+    ctx.fillRect(x, y, size, size)
+    ctx.shadowBlur = 0
+}
+
+const Draw_FakeFood = () => {
+    const {x, y, color} = fakefood
+    
+
     ctx.fillStyle = color
     ctx.fillRect(x, y, size, size)
     ctx.shadowBlur = 0
@@ -309,7 +403,7 @@ const Chek_Collision = () => {
     const head = snake[snake.length - 1]
     const Canvas_Limit = canvas.width - size
     const Neck_Index = snake.length - 2
-
+    
     const Wall_Collision = 
     head.x < 0 || head.x > Canvas_Limit || head.y < 0 || head.y > Canvas_Limit
         
@@ -346,9 +440,16 @@ const Chek_Eat = () => {
 
         number++
         Increment_Score(number)
+        fakefood.x = Randow_Position()
+        fakefood.y = Randow_Position()
+        fakefood.color = Randow_Color()
+    }
 
+    if (head.x == fakefood.x && head.y == fakefood.y) {
+        Game_Over()        
     }
 }
+
 
 let zerar = false
 let cheak_save = false
@@ -361,10 +462,12 @@ if (!JSON.parse(localStorage.getItem('Pontos'))) {
 
 const Game_Over = () => {
     parar_cheak_save = false
+    
     if (!parar_cheak_save) {
         cheak_save = true
         parar_cheak_save = true
     }
+
     if (JSON.parse(localStorage.getItem('Pontos'))) {
         salvar_number = JSON.parse(localStorage.getItem('Pontos'))
         
@@ -372,11 +475,12 @@ const Game_Over = () => {
             if (cheak_save) {
                     if (salvar_number[c] <= number) {
                         salvar_number.splice(c, 1)
+                        salvar_number.push(number)
+                        localStorage.setItem('Pontos', JSON.stringify(salvar_number))
                     }
-                salvar_number.push(number)
-                localStorage.setItem('Pontos', JSON.stringify(salvar_number))
         
             }
+        }     
         
             if (salvar_number[0] <= 9) {
                 melhor_score.innerText = `0${salvar_number[0]}`
@@ -384,9 +488,8 @@ const Game_Over = () => {
                 melhor_score.innerText = salvar_number[0]
             }
         }
-    }     
-
-    zerar = true
+        
+        zerar = true
     parar = true
     direction = undefined
     
@@ -407,6 +510,10 @@ btn_play.addEventListener('click', () => {
     food.x = Randow_Position(0, 570)
     food.y = Randow_Position(0, 570)
     food.color = Randow_Color()
+
+    fakefood.x = Randow_Position(0, 570)
+    fakefood.y = Randow_Position(0, 570)
+    fakefood.color = Randow_Color()
     
     if (nome_da_dificuldade.innerText == 'Aleatório') {
         console.log(value);
@@ -436,7 +543,7 @@ btn_play.addEventListener('click', () => {
         exposed_dificulty.innerText = 'Dificuldade: Impossível'
 
     }
-
+    
     if (zerar) {
         number = 0
         score.innerText = number
@@ -452,10 +559,44 @@ btn_play.addEventListener('click', () => {
     score.style.filter = 'none'
     exposed_dificulty.style.filter = 'none'
     controles.style.filter = 'none'
-
+    
     snake = [{x: 270, y: 240}]
     value = dificuldade.value
+    
+
+
+    if (nome_do_modo.innerText == 'Jogo clássico') {
+        classico = true
+        portal = false
+        parede = false
+        sorte = false
+    }
+    
+    if (nome_do_modo.innerText == 'Portal aleatório') {
+        portal = true
+        classico = false
+        parede = false
+        sorte = false
+    }
+    
+    if (nome_do_modo.innerText == 'Parede aleatória') {
+        parede = true
+        classico = false
+        portal = false
+        sorte = false
+    }
+    
+    if (nome_do_modo.innerText == 'Cofie na sorte') {
+        sorte = true
+        classico = false
+        portal = false
+        parede = false
+    }
+    
 })
+const aplicar_modo = () => {
+    if (sorte) {}
+}
 
 const Increment_Score = (number) => {
     if (zerar) {
@@ -472,9 +613,15 @@ const Increment_Score = (number) => {
     
 }
 
+
+
 const Game_Loop = () => {
     clearInterval(loop_id)
     ctx.clearRect(0, 0, 600, 600)
+
+    if (sorte) {
+        Draw_FakeFood()
+    }
     
     Draw_Grid()
     Draw_Food()
@@ -581,3 +728,8 @@ dificuldade.addEventListener("input", function() {
   dificuldade.style.background = 'linear-gradient(to right, ' + color + ' 0%, ' + color + ' ' + (value * 20) + '%, #ddd ' + (value * 20) + '%, #ddd 100%)'
 
 })
+
+console.log(tipoDispositivo2);
+if (tipoDispositivo2 == 'Celular') {
+    controles.style.display = 'flex'
+}
