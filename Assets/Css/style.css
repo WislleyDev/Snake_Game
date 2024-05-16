@@ -59,6 +59,10 @@ canvas {
     font-size: 1.5rem;
 }
 
+#vidas {
+    display: none;
+}
+
 .melhor_score {
     font-weight: 500;
     font-size: 1.5rem;

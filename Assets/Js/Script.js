@@ -16,10 +16,11 @@ const trocar_modo_para_E = document.querySelector('#mais')
 const trocar_modo_para_D = document.querySelector('#menos')
 const img_do_modo_de_jogo = document.querySelector('#modo_de_jogo')
 const nome_do_modo = document.querySelector('#nome_do_modo')
+const quantidade_de_vidas = document.querySelector('#vidas > span')
+const numero_de_vidas = document.querySelector('#vidas')
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-console.log(dificuldade.value);
 
 
 let value = dificuldade.value
@@ -34,13 +35,11 @@ const Cheak_difficulty = () => {
     
     if (nome_da_dificuldade.innerText == 'Aleatório') {
         value = Randow_Number(1, 5)
-        console.log(value);
     }
 
     if (value == 1) {
         facil = true
         exposed_dificulty.innerText = 'Dificuldade: Fácil'
-        console.log('dificuldade = facil');
 
         
         padrao = false
@@ -53,7 +52,6 @@ const Cheak_difficulty = () => {
     if (value == 2) {
         medio = true
         exposed_dificulty.innerText = 'Dificuldade: Médio'
-        console.log('dificuldade = medio');
 
         padrao = false    
         facil = false
@@ -66,7 +64,6 @@ const Cheak_difficulty = () => {
     if (value == 3) {
         dificil = true
         exposed_dificulty.innerText = 'Dificuldade: Difícil'
-        console.log('dificuldade = dificil');
 
         padrao = false    
         facil = false
@@ -79,7 +76,6 @@ const Cheak_difficulty = () => {
     if (value == 4) {
         extremo = true
         exposed_dificulty.innerText = 'Dificuldade: Extremo'
-        console.log('dificuldade = extremo');
 
         padrao = false    
         facil = false
@@ -92,7 +88,6 @@ const Cheak_difficulty = () => {
     if (value == 5) {
         impossivel = true
         exposed_dificulty.innerText = 'Dificuldade: Impossível'
-        console.log('dificuldade = impossivel');
 
         padrao = false    
         facil = false
@@ -103,7 +98,6 @@ const Cheak_difficulty = () => {
     
     if (nome_da_dificuldade.innerText == 'Fácil') {
         facil = true
-        console.log('dificuldade = facil');
 
         exposed_dificulty.innerText = 'Dificuldade: Fácil'
 
@@ -116,7 +110,6 @@ const Cheak_difficulty = () => {
 
     if (nome_da_dificuldade.innerText == 'Médio') {
         medio = true
-        console.log('dificuldade = medio');
 
         exposed_dificulty.innerText = 'Dificuldade: Médio'
         
@@ -129,7 +122,6 @@ const Cheak_difficulty = () => {
 
     if (nome_da_dificuldade.innerText == 'Difícil') {
         dificil = true
-        console.log('dificuldade = dificil');
 
         exposed_dificulty.innerText = 'Dificuldade: Difícil'
 
@@ -142,7 +134,6 @@ const Cheak_difficulty = () => {
 
     if (nome_da_dificuldade.innerText == 'Extremo') {
         extremo = true
-        console.log('dificuldade = extremo');
 
         exposed_dificulty.innerText = 'Dificuldade: Extremo'
 
@@ -155,7 +146,6 @@ const Cheak_difficulty = () => {
 
     if (nome_da_dificuldade.innerText == '☠️ Impossível ☠️') {
         impossivel = true
-        console.log('dificuldade = impossivel');
 
         exposed_dificulty.innerText = 'Dificuldade: Impossível'
         
@@ -175,7 +165,9 @@ const Cheak_difficulty = () => {
 
 let parar = false
 
-const audio = new Audio('Assets/Audio/audio.mp3')
+const audio_comendo_fruta = new Audio('Assets/Audio/audio.mp3')
+const audio_de_dano = new Audio('Assets/Audio/dano.mp3')
+const audio_de_morte = new Audio('Assets/Audio/morte.mp3')
 
 const size = 30
 
@@ -300,14 +292,16 @@ const Draw_Food = () => {
     ctx.shadowBlur = 0
 }
 
-const Draw_FakeFood = () => {
-    const {x, y, color} = fakefood
-    
-
-    ctx.fillStyle = color
-    ctx.fillRect(x, y, size, size)
-    ctx.shadowBlur = 0
-}
+var Draw_FakeFood = () => {
+    if (sorte) {
+        const {x, y, color} = fakefood
+        
+        
+        ctx.fillStyle = color
+        ctx.fillRect(x, y, size, size)
+        ctx.shadowBlur = 0
+    }
+    }
 
 const drawSnake = () => {
     ctx.fillStyle = '#ddd'
@@ -399,6 +393,7 @@ const Draw_Grid = () => {
     
 }
 
+var audio_em_reproducao = false
 const Chek_Collision = () => {
     const head = snake[snake.length - 1]
     const Canvas_Limit = canvas.width - size
@@ -411,11 +406,18 @@ const Chek_Collision = () => {
         return index < Neck_Index && position.x == head.x && position.y == head.y
     })
     
+
     if (Wall_Collision || Self_Collision) {
+        if (!audio_em_reproducao) {
+            audio_de_morte.play()
+            audio_em_reproducao = true
+        }
         Game_Over()
     }
+    
 }
 
+let vidas = 3
 let number = 0
 let objeto = {}
 let melhor_pontuacao = []
@@ -424,7 +426,7 @@ const Chek_Eat = () => {
     
     if (head.x == food.x && head.y == food.y) {
         snake.push(head)
-        audio.play()
+        audio_comendo_fruta.play()
         
         let x = Randow_Position(0, 570)
         let y = Randow_Position(0, 570)
@@ -445,8 +447,27 @@ const Chek_Eat = () => {
         fakefood.color = Randow_Color()
     }
 
-    if (head.x == fakefood.x && head.y == fakefood.y) {
-        Game_Over()        
+    if (sorte) {
+        numero_de_vidas.style.display = 'flex'
+        quantidade_de_vidas.innerText = vidas
+        if (head.x == fakefood.x && head.y == fakefood.y) {
+            audio_de_dano.play()
+            quantidade_de_vidas.innerText = vidas
+            fakefood.x = Randow_Position()
+            fakefood.y = Randow_Position()
+            fakefood.color = Randow_Color()
+            food.x = Randow_Position()
+            food.y = Randow_Position()
+            food.color = Randow_Color()
+            if (vidas > 0) {
+                vidas -= 1
+            }
+    
+            if (vidas == 0) {
+                Game_Over()
+                vidas = 0
+            }
+        }
     }
 }
 
@@ -503,6 +524,9 @@ const Game_Over = () => {
 }
 
 btn_play.addEventListener('click', () => {
+    direction = undefined
+    vidas = 3
+    audio_em_reproducao = false
     if (cheak_save) {
         cheak_save = false
     }
@@ -516,7 +540,6 @@ btn_play.addEventListener('click', () => {
     fakefood.color = Randow_Color()
     
     if (nome_da_dificuldade.innerText == 'Aleatório') {
-        console.log(value);
         
     }
     
@@ -603,10 +626,8 @@ const Increment_Score = (number) => {
         zerar = false
     } else {
         if (number <= 9) {
-            console.log('else = true')
             score.innerText = `0${number++}`
         } else {
-            console.log('else = true')
             score.innerText = number++
         }
     }
@@ -729,7 +750,6 @@ dificuldade.addEventListener("input", function() {
 
 })
 
-console.log(tipoDispositivo2);
 if (tipoDispositivo2 == 'Celular') {
     controles.style.display = 'flex'
 }
