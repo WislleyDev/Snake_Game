@@ -9,41 +9,41 @@
     <link rel="stylesheet" href="Assets/Css/style.css">
 </head>
 <body>
-    <div class="score">
-        <p id="nome_score">Score:<span class="score_value">00</span></p>
-        <p id="exposed_dificulty">Dificuldade: Fácil</p>
-        <p id="vidas">Vidas: <span>3</span></p>
-    </div>
-
-    <div class="menu_screen">
-        <span class="game_over">Game Over</span>
-        <p class="melhor_score">Recorde: <span>00</span></p>
-        <span class="final_score">Score: <span>00</span></span>
-        <p class="final_score">Dificuldade:</p>
-        <input type="range" name="dificuldade" id="id_dificuldade" min="0" max="5" value="0">
-        <p id="nome_da_dificuldade">Aleatório</p>
-            
-        <div id="modo">
-            <p class="final_score" id="nome_modo">Modo:</p>
-            <div id="itens_do_seletor">
-                <button class="setas" id="mais"><img src="Assets/Utils/Imgs/setaE.png" alt=""></button>
-                <div id="img_e_nome">
-                    <img id="modo_de_jogo" src="Assets/Utils/Imgs/classico.png" alt="">
-                    <p id="nome_do_modo">Jogo clássico</p>
-                </div>
-                <button class="setas" id="menos"><img src="Assets/Utils/Imgs/setaD.png" alt=""></button>
-            </div>
+    <div id="parte1">
+        <div class="score">
+            <p id="nome_score">Score:<span class="score_value">00</span></p>
+            <p id="exposed_dificulty">Dificuldade: Fácil</p>
+            <p id="vidas">Vidas: <span>3</span></p>
         </div>
-
-        <button class="btn_play">
-            <span class="material-symbols-outlined">
-                play_circle
-            </span>
-            Jogar Novamente
-        </button>
+        <div class="menu_screen">
+            <span class="game_over">Game Over</span>
+            <p class="melhor_score">Recorde: <span>00</span></p>
+            <span class="final_score">Score: <span>00</span></span>
+            <p class="final_score">Dificuldade:</p>
+            <input type="range" name="dificuldade" id="id_dificuldade" min="0" max="5" value="0">
+            <p id="nome_da_dificuldade">Aleatório</p>
+        
+            <div id="modo">
+                <p class="final_score" id="nome_modo">Modo:</p>
+                <div id="itens_do_seletor">
+                    <button class="setas" id="mais"><img src="Assets/Utils/Imgs/setaE.png" alt=""></button>
+                    <div id="img_e_nome">
+                        <img id="modo_de_jogo" src="Assets/Utils/Imgs/classico.png" alt="">
+                        <p id="nome_do_modo">Jogo clássico</p>
+                    </div>
+                    <button class="setas" id="menos"><img src="Assets/Utils/Imgs/setaD.png" alt=""></button>
+                </div>
+            </div>
+            <button class="btn_play">
+                <span class="material-symbols-outlined">
+                    play_circle
+                </span>
+                Jogar Novamente
+            </button>
+        </div>
+        
+        <canvas width="600" height="600"></canvas>
     </div>
-    
-    <canvas width="600" height="600"></canvas>
     <div id="controles">
         <button id="esquerda">&larr;</button>
         <div id="cima_baixo">
@@ -52,7 +52,8 @@
         </div>
         <button id="direita">&rarr;</button>
     </div>
-    <script src="Assets/Js/detectar_d.js"></script>
+
     <script src="Assets/Js/Script.js"></script>
+    <script src="Assets/Js/tela.js"></script>
 </body>
 </html>

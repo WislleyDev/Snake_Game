@@ -21,8 +21,6 @@ const numero_de_vidas = document.querySelector('#vidas')
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-
-
 let value = dificuldade.value
 let padrao = true
 let facil = false
@@ -35,9 +33,7 @@ const Cheak_difficulty = () => {
     
     if (nome_da_dificuldade.innerText == 'Aleatório') {
         value = Randow_Number(1, 5)
-    }
-
-    if (value == 1) {
+    } else if (value == 1) {
         facil = true
         exposed_dificulty.innerText = 'Dificuldade: Fácil'
 
@@ -47,9 +43,7 @@ const Cheak_difficulty = () => {
         dificil = false
         extremo = false
         impossivel = false
-    }
-
-    if (value == 2) {
+    } else if (value == 2) {
         medio = true
         exposed_dificulty.innerText = 'Dificuldade: Médio'
 
@@ -59,9 +53,7 @@ const Cheak_difficulty = () => {
         extremo = false
         impossivel = false
 
-    }
-
-    if (value == 3) {
+    } else if (value == 3) {
         dificil = true
         exposed_dificulty.innerText = 'Dificuldade: Difícil'
 
@@ -71,9 +63,7 @@ const Cheak_difficulty = () => {
         extremo = false
         impossivel = false
 
-    }
-
-    if (value == 4) {
+    } else if (value == 4) {
         extremo = true
         exposed_dificulty.innerText = 'Dificuldade: Extremo'
 
@@ -83,9 +73,7 @@ const Cheak_difficulty = () => {
         dificil = false
         impossivel = false
 
-    }
-
-    if (value == 5) {
+    } else if (value == 5) {
         impossivel = true
         exposed_dificulty.innerText = 'Dificuldade: Impossível'
 
@@ -94,9 +82,7 @@ const Cheak_difficulty = () => {
         medio = false
         dificil = false
         extremo = false
-    }
-    
-    if (nome_da_dificuldade.innerText == 'Fácil') {
+    } else if (nome_da_dificuldade.innerText == 'Fácil') {
         facil = true
 
         exposed_dificulty.innerText = 'Dificuldade: Fácil'
@@ -106,9 +92,7 @@ const Cheak_difficulty = () => {
         dificil = false
         extremo = false
         impossivel = false
-    }
-
-    if (nome_da_dificuldade.innerText == 'Médio') {
+    } else if (nome_da_dificuldade.innerText == 'Médio') {
         medio = true
 
         exposed_dificulty.innerText = 'Dificuldade: Médio'
@@ -118,9 +102,7 @@ const Cheak_difficulty = () => {
         dificil = false
         extremo = false
         impossivel = false
-    }
-
-    if (nome_da_dificuldade.innerText == 'Difícil') {
+    } else if (nome_da_dificuldade.innerText == 'Difícil') {
         dificil = true
 
         exposed_dificulty.innerText = 'Dificuldade: Difícil'
@@ -130,9 +112,7 @@ const Cheak_difficulty = () => {
         medio = false
         extremo = false
         impossivel = false
-    }
-
-    if (nome_da_dificuldade.innerText == 'Extremo') {
+    } else if (nome_da_dificuldade.innerText == 'Extremo') {
         extremo = true
 
         exposed_dificulty.innerText = 'Dificuldade: Extremo'
@@ -142,9 +122,7 @@ const Cheak_difficulty = () => {
         medio = false
         dificil = false
         impossivel = false
-    }
-
-    if (nome_da_dificuldade.innerText == '☠️ Impossível ☠️') {
+    } else if (nome_da_dificuldade.innerText == '☠️ Impossível ☠️') {
         impossivel = true
 
         exposed_dificulty.innerText = 'Dificuldade: Impossível'
@@ -155,9 +133,7 @@ const Cheak_difficulty = () => {
         medio = false
         dificil = false
         extremo = false
-    }
-
-    if (value > 0 || facil || medio || dificil || extremo || impossivel) {
+    } else if (value > 0 || facil || medio || dificil || extremo || impossivel) {
         padrao = false
     }
 } 
@@ -193,6 +169,12 @@ const Randow_Color = () => {
     return `rgb(${red}, ${blue}, ${green})`
 }
 
+const parede_aleatoria = {
+    x: Randow_Position(0, 570),
+    y: Randow_Position(0, 570),
+    color: '#191919'
+}
+
 const food = {
     x: Randow_Position(0, 570),
     y: Randow_Position(0, 570),
@@ -212,32 +194,15 @@ let sorte = false
 let cheak_number = 1
 trocar_modo_para_D.addEventListener('click', () => {
         cheak_number += 1
-        console.log(cheak_number);
 
-        if (cheak_number == 0) {
+        if (cheak_number == 1) {
             img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/classico.png'
             nome_do_modo.innerText = 'Jogo clássico'
             cheak_number += 3
-        }
-        
-        if (cheak_number == 2) {
-            img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/portal.png'
-            nome_do_modo.innerText = 'Portal aleatório'
-
-        }
-
-        if (cheak_number == 3) {
-            img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/randow_wall.png'
-            nome_do_modo.innerText = 'Parede aleatória'
-
-        }
-
-        if (cheak_number == 4) {
+        }else if (cheak_number == 2) {
             img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/poison_apple.png'
             nome_do_modo.innerText = 'Cofie na sorte'
-        }
-
-        if (cheak_number == 5) {
+        } else if (cheak_number == 3) {
             img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/classico.png'
             nome_do_modo.innerText = 'Jogo clássico'
 
@@ -245,39 +210,18 @@ trocar_modo_para_D.addEventListener('click', () => {
         }
     })
 
-trocar_modo_para_E.addEventListener('click', () => {
-    cheak_number -= 1
+    trocar_modo_para_E.addEventListener('click', () => {
+        cheak_number -= 1
+        
+        if (cheak_number == 0) {
+            img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/classico.png'
+            nome_do_modo.innerText = 'Jogo clássico'
+            cheak_number = 2
+        }else if (cheak_number == 1) {
+            img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/poison_apple.png'
+            nome_do_modo.innerText = 'Cofie na sorte'
+        }
 
-    if (cheak_number == 0) {
-        img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/classico.png'
-        nome_do_modo.innerText = 'Jogo clássico'
-
-        cheak_number += 4
-    }
-    
-    if (cheak_number == 1) {
-        img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/classico.png'
-        nome_do_modo.innerText = 'Jogo clássico'
-
-        cheak_number = 1
-    }
-
-    if (cheak_number == 2) {
-        img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/portal.png'
-        nome_do_modo.innerText = 'Portal aleatório'
-
-    }
-
-    if (cheak_number == 3) {
-        img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/randow_wall.png'
-        nome_do_modo.innerText = 'Parede aleatória'
-
-    }
-
-    if (cheak_number == 4) {
-        img_do_modo_de_jogo.src = 'Assets/Utils/Imgs/poison_apple.png'
-        nome_do_modo.innerText = 'Cofie na sorte'
-    }
 })
 
 let direction, loop_id
@@ -301,7 +245,18 @@ var Draw_FakeFood = () => {
         ctx.fillRect(x, y, size, size)
         ctx.shadowBlur = 0
     }
+}
+
+var Draw_Randow_Walls = () => {
+    
+    if (parede) {
+        const {x, y, color} = parede_aleatoria
+        
+        ctx.fillStyle = color
+        ctx.fillRect(x, y, size, size)
+        ctx.shadowBlur = 0
     }
+}
 
 const drawSnake = () => {
     ctx.fillStyle = '#ddd'
@@ -351,17 +306,11 @@ const move_snake = () => {
         
         if (direction == 'right') {
             snake.push({ x: head.x + size, y: head.y })
-        }
-        
-        if (direction == 'left') {
+        } else if (direction == 'left') {
             snake.push({ x: head.x - size, y: head.y })
-        }
-        
-        if (direction == 'down') {
+        } else if (direction == 'down') {
             snake.push({ x: head.x, y: head.y + size })
-        }
-        
-        if (direction == 'up') {
+        } else if (direction == 'up') {
             snake.push({ x: head.x, y: head.y - size })
         }
         
@@ -445,9 +394,7 @@ const Chek_Eat = () => {
         fakefood.x = Randow_Position()
         fakefood.y = Randow_Position()
         fakefood.color = Randow_Color()
-    }
-
-    if (sorte) {
+    } else if (sorte) {
         numero_de_vidas.style.display = 'flex'
         quantidade_de_vidas.innerText = vidas
         if (head.x == fakefood.x && head.y == fakefood.y) {
@@ -461,13 +408,13 @@ const Chek_Eat = () => {
             food.color = Randow_Color()
             if (vidas > 0) {
                 vidas -= 1
-            }
-    
-            if (vidas == 0) {
+            }else if (vidas == 0) {
                 Game_Over()
                 vidas = 0
             }
         }
+    } else if (parede) {
+
     }
 }
 
@@ -487,9 +434,7 @@ const Game_Over = () => {
     if (!parar_cheak_save) {
         cheak_save = true
         parar_cheak_save = true
-    }
-
-    if (JSON.parse(localStorage.getItem('Pontos'))) {
+    }else if (JSON.parse(localStorage.getItem('Pontos'))) {
         salvar_number = JSON.parse(localStorage.getItem('Pontos'))
         
         for (let c = 0; c < salvar_number.length; c++) {
@@ -541,33 +486,21 @@ btn_play.addEventListener('click', () => {
     
     if (nome_da_dificuldade.innerText == 'Aleatório') {
         
-    }
-    
-    if (value == 1) {
+    } else if (value == 1) {
         exposed_dificulty.innerText = 'Dificuldade: Fácil'
-    }
-    
-    if (value == 2) {
+    } else if (value == 2) {
         exposed_dificulty.innerText = 'Dificuldade: Médio'
         
-    }
-    
-    if (value == 3) {
+    } else if (value == 3) {
         exposed_dificulty.innerText = 'Dificuldade: Difícil'
 
-    }
-
-    if (value == 4) {
+    } else if (value == 4) {
         exposed_dificulty.innerText = 'Dificuldade: Extremo'
 
-    }
-
-    if (value == 5) {
+    } else if (value == 5) {
         exposed_dificulty.innerText = 'Dificuldade: Impossível'
 
-    }
-    
-    if (zerar) {
+    } else if (zerar) {
         number = 0
         score.innerText = number
         zerar = false
@@ -593,45 +526,31 @@ btn_play.addEventListener('click', () => {
         portal = false
         parede = false
         sorte = false
-    }
-    
-    if (nome_do_modo.innerText == 'Portal aleatório') {
+    } else if (nome_do_modo.innerText == 'Portal aleatório') {
         portal = true
         classico = false
         parede = false
         sorte = false
-    }
-    
-    if (nome_do_modo.innerText == 'Parede aleatória') {
+    } else if (nome_do_modo.innerText == 'Parede aleatória') {
         parede = true
         classico = false
         portal = false
         sorte = false
-    }
-    
-    if (nome_do_modo.innerText == 'Cofie na sorte') {
+    } else if (nome_do_modo.innerText == 'Cofie na sorte') {
         sorte = true
         classico = false
         portal = false
         parede = false
-    }
+    } 
     
 })
-const aplicar_modo = () => {
-    if (sorte) {}
-}
 
 const Increment_Score = (number) => {
-    if (zerar) {
-        zerar = false
+    if (number <= 9) {
+        score.innerText = `0${number++}`
     } else {
-        if (number <= 9) {
-            score.innerText = `0${number++}`
-        } else {
-            score.innerText = number++
-        }
+        score.innerText = number++
     }
-    
 }
 
 
@@ -655,33 +574,23 @@ const Game_Loop = () => {
         loop_id = setTimeout(() => {
             Game_Loop()
         }, 100)
-    }
-
-    if (facil) {
+    }  else if (facil) {
         loop_id = setTimeout(() => {
             Game_Loop()
         }, 80)
-    }
-
-    if (medio) {
+    }  else if (medio) {
         loop_id = setTimeout(() => {
             Game_Loop()
         }, 70)
-    }
-
-    if (dificil) {
+    } else if (dificil) {
         loop_id = setTimeout(() => {
             Game_Loop()
         }, 60)
-    }
-
-    if (extremo) {
+    } else if (extremo) {
         loop_id = setTimeout(() => {
             Game_Loop()
         }, 40)
-    }
-
-    if (impossivel) {
+    } else if (impossivel) {
         loop_id = setTimeout(() => {
             Game_Loop()
         }, 35)
@@ -693,17 +602,11 @@ Game_Loop()
 document.addEventListener('keydown', ({ key }) => {
     if (key == 'ArrowRight' && direction != 'left') {
         direction = 'right'
-    }
-
-    if (key == 'ArrowLeft'  && direction != 'right') {
+    } else if (key == 'ArrowLeft'  && direction != 'right') {
         direction = 'left'
-    }
-    
-    if (key == 'ArrowDown'  && direction != 'up') {
+    } else if (key == 'ArrowDown'  && direction != 'up') {
         direction = 'down'
-    }
-    
-    if (key == 'ArrowUp'  && direction != 'down') {
+    } else if (key == 'ArrowUp'  && direction != 'down') {
         direction = 'up'
     }
 })
@@ -749,6 +652,54 @@ dificuldade.addEventListener("input", function() {
   dificuldade.style.background = 'linear-gradient(to right, ' + color + ' 0%, ' + color + ' ' + (value * 20) + '%, #ddd ' + (value * 20) + '%, #ddd 100%)'
 
 })
+
+function identificarTipoDispositivo() {
+    const userAgent = navigator.userAgent;
+    const platform = navigator.platform;
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)) {
+        return 'Celular';
+    } else if (/Windows|Win16|Win32|Win64/i.test(platform)) {
+        return 'PC';
+    } else if (/Macintosh|MacIntel|MacPPC|Mac68K/i.test(platform)) {
+        return 'Mac';
+    } else if (/Linux/i.test(platform)) {
+        // Verifica se é uma Smart TV baseada em Linux
+        if (/SMART-TV|SmartTV|smarttv|Smart|HbbTV|NetCast|Linux/i.test(userAgent)) {
+            return 'TV';
+        } else {
+            // Se não for uma Smart TV, assume-se que seja um dispositivo Linux não específico
+            return 'Linux';
+        }
+    } else {
+        return 'Desconhecido';
+    }
+}
+function identificarDispositivo() {
+const userAgent = navigator.userAgent;
+const platform = navigator.platform;
+
+if (/Android/i.test(userAgent)) {
+return 'Android';
+} else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+return 'iOS';
+} else if (/Windows Phone/i.test(userAgent)) {
+return 'Windows Phone';
+} else if (/Linux/i.test(platform)) {
+return 'Linux';
+} else if (/Macintosh|MacIntel|MacPPC|Mac68K/i.test(platform)) {
+return 'Mac';
+} else if (/Windows|Win16|Win32|Win64/i.test(platform)) {
+return 'Windows';
+} else {
+return 'Desconhecido';
+}
+}
+
+// Obtém informações sobre o dispositivo
+const tipoDispositivo = identificarDispositivo();
+const larguraTela = window.screen.width;
+const alturaTela = window.screen.height;
+const tipoDispositivo2 = identificarTipoDispositivo();
 
 if (tipoDispositivo2 == 'Celular') {
     controles.style.display = 'flex'
